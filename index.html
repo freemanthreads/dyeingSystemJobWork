@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<script src="index.js"></script>
+<style>
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    .container{
+        overflow: hidden;
+    }
+    .tab{float: left;}
+    .tab-2{margin-left: 50px;}
+    .tab-2 input{display: block;}
+</style>
+<body>
+    <h1 style="text-align: center;">Challan list</h1>
+    <div class="container">
+    <div class="tab tab-1">
+        <table id="challanList" class="chList">
+            <tr>
+                <th>challan number</th>
+                <th>challan date</th>
+                <th>party name</th>
+            </tr>
+            <tbody id="chTable">
+            </tbody>
+        </table>
+        <button id="submit" onclick="displayData()">Show challans</button>
+    </div>
+    <div class="tab tab-2">
+            challan number: <input type="number" id="ch_num"><br>
+            challan date: <input type="date" id="ch_date"><br>
+            party name: <input type="text" id="ch_party"><br>
+            <button type="submit" onclick="displayData()">submit</button>
+    </div>
+</div>
+</body>
+
+</html>
