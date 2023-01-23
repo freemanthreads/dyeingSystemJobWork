@@ -1,0 +1,12 @@
+td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    .container{
+        overflow: hidden;
+    }
+    .tab{float: left;}
+    .tab-2{margin-left: 50px;}
+    .tab-2 input{display: block;}
