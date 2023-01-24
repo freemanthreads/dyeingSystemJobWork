@@ -1,6 +1,7 @@
 const mysql=require('mysql');
 const express =require('express');
 const app=express();
+const cors=require('cors');
 
 const db=mysql.createConnection({
     host:'localhost',
@@ -18,6 +19,10 @@ db.connect(function(err){
         console.log("database connectivity succesfull");
     }
 });
+app.use(cors());
+app.get('/',(req,res)=>{
+    res.sendFile('/index.html',{root:__dirname});
+});
 app.get('/challanList',(req,res)=>{
     sql='SELECT * FROM ch_main;'
     db.query(sql,(err,result)=>{
@@ -25,7 +30,7 @@ app.get('/challanList',(req,res)=>{
         res.send(result);
     })
     res.end;
-})
+});
 app.listen(8080, () => {
     console.log(`Server running `);
 });
