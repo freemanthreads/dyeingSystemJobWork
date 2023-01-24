@@ -1,0 +1,23 @@
+{
+  "name": "dyeingsystemjobwork",
+  "version": "1.0.0",
+  "description": "dyeing job work system",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/navmeetsekhon/dyeingSystemJobWork.git"
+  },
+  "author": "Navmeet Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/navmeetsekhon/dyeingSystemJobWork/issues"
+  },
+  "homepage": "https://github.com/navmeetsekhon/dyeingSystemJobWork#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}
