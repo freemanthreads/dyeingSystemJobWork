@@ -20,9 +20,18 @@ db.connect(function(err){
     }
 });
 app.use(cors());
-app.get('/',(req,res)=>{
-    res.sendFile('/index.html',{root:__dirname});
-});
+//ADD NEW PARTY THROUGH THIS REQUEST.
+app.post('/addparty',(req,res)=>{
+    let partyName=req.body.partyName;
+    let partyAddress=req.body.partyAddress;
+    let gstNo=req.body.gst_no;
+
+    console.log(partyName+"\n"+
+    partyAddress+"\n"+
+    gstNo);
+})
+
+//RETREIVE ALL CHALLAN LIST.
 app.get('/challanList',(req,res)=>{
     sql='SELECT * FROM ch_main;'
     db.query(sql,(err,result)=>{

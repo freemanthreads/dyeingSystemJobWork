@@ -1,4 +1,5 @@
 
+
 let button = document.getElementById('testApi');
 
 // button.addEventListener("click",function showList(){
@@ -33,3 +34,24 @@ function submitData(){
         " \ntotal : "+ total_amt
     );
 }
+
+function addParty(){
+    var partyName=document.getElementById('ch_party').value;
+    var partyAddress=document.getElementById('party_address').value;
+    var gst_no=document.getElementById('party_gst').value;
+
+    var xhr= new XMLHttpRequest();
+    xhr.open("GET","https://api.sampleapis.com/codingresources/codingResources");
+    xhr.onreadystatechange=()=>{
+        if(xhr.readState==4&&xhr.status==200){
+        console.log(xhr.responseText);
+        }
+        else{
+        console.log("error");
+        }
+    }
+    xhr.onload=()=>{
+        console.log(JSON.parse(xhr.response));
+    }
+    xhr.send();
+};
