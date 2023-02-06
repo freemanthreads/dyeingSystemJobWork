@@ -20,7 +20,6 @@ function submitData(){
     let shade_num=document.getElementById("shade_num").value;
     let item_amount=document.getElementById('item_amount').value;
     let price=document.getElementById('price').value;
-    let total_amt=item_amount*price;
 
     console.log(
         "ch_num : "+ ch_num +
@@ -41,7 +40,7 @@ function addParty(){
     var gst_no=document.getElementById('party_gst').value;
 
     var xhr= new XMLHttpRequest();
-    xhr.open("GET","https://api.sampleapis.com/codingresources/codingResources");
+    xhr.open("GET","http://localhost:8080/addparty");
     xhr.onreadystatechange=()=>{
         if(xhr.readState==4&&xhr.status==200){
         console.log(xhr.responseText);
