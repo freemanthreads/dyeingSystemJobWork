@@ -27,6 +27,8 @@ app.use(cors());
 
 //ADD NEW CHALLAN 
 app.post('/newchallan/',jsonParser,async (req,res)=>{
+    console.log(req.body);
+
     let date=req.body.chDate;
     let ch_type=await getType(req.body.chType);
     let party=await getParty(req.body.party);
@@ -45,7 +47,7 @@ app.post('/newchallan/',jsonParser,async (req,res)=>{
     jobCharges+"\n"+
     total_amt);
     res.end;
-})
+});
 
 //ADD NEW PARTY THROUGH THIS REQUEST.
 
@@ -57,7 +59,7 @@ app.post('/addparty',(req,res)=>{
     console.log(partyName+"\n"+
     partyAddress+"\n"+
     gstNo);
-})
+});
 
 //RETREIVE ALL CHALLAN LIST.
 app.get('/challanList',(req,res)=>{
@@ -71,6 +73,7 @@ app.get('/challanList',(req,res)=>{
 
 //GET CHALLAN TYPE
 async function getType(chType){
+    console.log(chType);
     return new Promise((resolve, reject) => {
         sql='SELECT type_id FROM type_table WHERE ch_type="'+chType+'";'
         db.query(sql,(err,result)=>{
@@ -79,7 +82,7 @@ async function getType(chType){
             resolve(String(result[0].type_id));
         });
     });
-}
+};
 //GET CHALLAN PARTY
 async function getParty(party){
     return new Promise((resolve, reject) => {
@@ -90,23 +93,23 @@ async function getParty(party){
             resolve(String(result[0].party_id));
         });
     });
-}
+};
 //GET ITEM ID
 async function getItem(item_name){
     return new Promise((resolve, reject) => {
         sql='SELECT item_id FROM item_list WHERE item_name="'+item_name+'";'
         db.query(sql,(err,result)=>{
             if(err) reject(err);
-            console.log("item id = "+result[0].item_id+" type: "+typeof result[0].item_id);
+            console.log("item id = "+result[0].item_id);
             resolve(String(result[0].item_id));
         });
     });
-}
+};
 app.post('/api',jsonParser,(req,res)=>{
     console.log(req.body.name);
     res.send(req.body.name);
     res.end;
-})
+});
 app.listen(8080, () => {
     console.log(`Server running `);
 });
