@@ -1,12 +1,12 @@
-let button = document.getElementById('testApi');
+// let button = document.getElementById('testApi');
 
-// button.addEventListener("click", function showList() {
-//     console.log("button clicked");
-//     fetch("http://localhost:8080/challanList")
-//         .then(response => response.json())
-//         .then(data => console.log(data))
-//         .catch(error => console.log(error));
-// })
+function showList() {
+    console.log("button clicked");
+    fetch("http://localhost:8080/challanList")
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
+}
 
 //FUNCTION TO SUBMIT DATA FOR NEW CHALLAN.
 function submitData() {

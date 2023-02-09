@@ -72,9 +72,7 @@ app.post('/addparty',(req,res)=>{
     let partyAddress=req.body.partyAddress;
     let gstNo=req.body.gst_no;
 
-    console.log(partyName+"\n"+
-    partyAddress+"\n"+
-    gstNo);
+    
 });
 
 //RETREIVE ALL CHALLAN LIST.
