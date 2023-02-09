@@ -25,6 +25,23 @@ db.connect(function(err){
 
 app.use(cors());
 
+function convertDateStringToMySQLFormat(dateString) {
+    var jsDate = new Date(dateString);
+    var year = jsDate.getFullYear();
+    var month = zeroPad(jsDate.getMonth() + 1, 2);
+    var day = zeroPad(jsDate.getDate(), 2);
+    var hours = zeroPad(jsDate.getHours(), 2);
+    var minutes = zeroPad(jsDate.getMinutes(), 2);
+    var seconds = zeroPad(jsDate.getSeconds(), 2);
+  
+    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+  }
+  
+  function zeroPad(num, places) {
+    var zero = places - num.toString().length + 1;
+    return Array(+(zero > 0 && zero)).join("0") + num;
+  }
+
 //ADD NEW CHALLAN 
 app.post('/newchallan/',jsonParser,async (req,res)=>{
     console.log(req.body);
@@ -37,15 +54,14 @@ app.post('/newchallan/',jsonParser,async (req,res)=>{
     let itemVal=req.body.shadeVal;
     let jobCharges=req.body.jobCharges;
     let total_amt=itemVal*jobCharges;
+    let mySqlDate=convertDateStringToMySQLFormat(date);
+    console.log(mySqlDate);
 
-    res.send(date+"\n"+
-    ch_type+"\n"+
-    party+"\n"+
-    item+"\n"+
-    shade+"\n"+
-    itemVal+"\n"+
-    jobCharges+"\n"+
-    total_amt);
+    let sql='INSERT INTO ch_main(ch_date,ch_type_id,party_id,item_id,ch_shade,item_val,job_charges,total_amt) VALUES("'+mySqlDate+'","'+ch_type+'","'+party+'","'+item+'","'+shade+'","'+itemVal+'","'+jobCharges+'","'+total_amt+'");';
+    db.query(sql,(err,result)=>{
+        if(err)throw err;
+        res.send ("challan created");
+    })
     res.end;
 });
 
