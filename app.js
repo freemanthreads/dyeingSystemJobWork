@@ -25,22 +25,6 @@ db.connect(function(err){
 
 app.use(cors());
 
-function convertDateStringToMySQLFormat(dateString) {
-    var jsDate = new Date(dateString);
-    var year = jsDate.getFullYear();
-    var month = zeroPad(jsDate.getMonth() + 1, 2);
-    var day = zeroPad(jsDate.getDate(), 2);
-    var hours = zeroPad(jsDate.getHours(), 2);
-    var minutes = zeroPad(jsDate.getMinutes(), 2);
-    var seconds = zeroPad(jsDate.getSeconds(), 2);
-  
-    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-  }
-  
-  function zeroPad(num, places) {
-    var zero = places - num.toString().length + 1;
-    return Array(+(zero > 0 && zero)).join("0") + num;
-  }
 
 //ADD NEW CHALLAN 
 app.post('/newchallan/',jsonParser,async (req,res)=>{
@@ -64,27 +48,6 @@ app.post('/newchallan/',jsonParser,async (req,res)=>{
     })
     res.end;
 });
-
-//ADD NEW PARTY THROUGH THIS REQUEST.
-
-app.post('/addparty',(req,res)=>{
-    let partyName=req.body.partyName;
-    let partyAddress=req.body.partyAddress;
-    let gstNo=req.body.gst_no;
-
-    
-});
-
-//RETREIVE ALL CHALLAN LIST.
-app.get('/challanList',(req,res)=>{
-    sql='SELECT * FROM ch_main;'
-    db.query(sql,(err,result)=>{
-        if(err) throw err;
-        res.send(result);
-    })
-    res.end;
-});
-
 //GET CHALLAN TYPE
 async function getType(chType){
     console.log(chType);
@@ -119,11 +82,59 @@ async function getItem(item_name){
         });
     });
 };
-app.post('/api',jsonParser,(req,res)=>{
-    console.log(req.body.name);
-    res.send(req.body.name);
+
+//RETREIVE ALL CHALLAN LIST.
+app.get('/challanList',(req,res)=>{
+    sql='SELECT * FROM ch_main;'
+    db.query(sql,(err,result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
     res.end;
 });
+
+//ADD NEW PARTY THROUGH THIS REQUEST.
+
+app.post('/addparty',jsonParser,(req,res)=>{
+    let partyName=req.body.partyName;
+    let gstNo=req.body.gst_no;
+    let sql='INSERT INTO party(party_name,party_gst) VALUES("'+partyName+'","'+gstNo+'"); '
+    db.query(sql,(err,result)=>{
+        if(err)throw err;
+        res.send("party added succesfully");
+    })
+    res.end;
+});
+
+app.get('/party_list',(req,res)=>{
+    sql='SELECT party_name FROM party;';
+    db.query(sql,(err,result)=>{
+        if(err)throw err;
+        res.send(result);
+        res.end;
+    })
+})
+
+
+
+
+function convertDateStringToMySQLFormat(dateString) {
+    var jsDate = new Date(dateString);
+    var year = jsDate.getFullYear();
+    var month = zeroPad(jsDate.getMonth() + 1, 2);
+    var day = zeroPad(jsDate.getDate(), 2);
+    var hours = zeroPad(jsDate.getHours(), 2);
+    var minutes = zeroPad(jsDate.getMinutes(), 2);
+    var seconds = zeroPad(jsDate.getSeconds(), 2);
+  
+    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+  }
+  
+  function zeroPad(num, places) {
+    var zero = places - num.toString().length + 1;
+    return Array(+(zero > 0 && zero)).join("0") + num;
+  }
+
 app.listen(8080, () => {
     console.log(`Server running `);
 });
