@@ -41,10 +41,13 @@ app.post('/newchallan/',jsonParser,async (req,res)=>{
     let mySqlDate=convertDateStringToMySQLFormat(date);
     console.log(mySqlDate);
 
-    let sql='INSERT INTO ch_main(ch_date,ch_type_id,party_id,item_id,ch_shade,item_val,job_charges,total_amt) VALUES("'+mySqlDate+'","'+ch_type+'","'+party+'","'+item+'","'+shade+'","'+itemVal+'","'+jobCharges+'","'+total_amt+'");';
-    db.query(sql,(err,result)=>{
+    let sql1='INSERT INTO ch_main(ch_date,ch_type_id,party_id) VALUES("'+mySqlDate+'","'+ch_type+'","'+party+'");';
+    db.query(sql1,(err,result)=>{
         if(err)throw err;
-        res.send ("challan created");
+    })
+    let sql2='INSERT INTO ch_detail(item_id,ch_shade,item_val,job_charges,total_amt) VALUES("'+item+'","'+shade+'","'+itemVal+'","'+jobCharges+'","'+total_amt+'");';
+    db.query(sql2,(err,result)=>{
+        if(err)throw err;
     })
     res.end;
 });
